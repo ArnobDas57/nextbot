@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Particles from "./ui/Particles";
 import Logo from "./ui/Logo";
+import Cubes from "./ui/Cubes";
 
 export default function Page() {
   const [messages, setMessages] = useState([
@@ -84,7 +85,7 @@ export default function Page() {
   return (
     <div className="relative min-h-screen bg-transparent flex flex-col items-center justify-start">
       {/* Background Particles */}
-      <div className="fixed top-0 left-0 w-full h-full -z-50">
+      <div className="fixed inset-0 -z-50 flex w-full h-full">
         <Particles
           particleColors={["#772CE8"]}
           particleCount={400}
@@ -102,15 +103,15 @@ export default function Page() {
         <Logo />
       </div>
 
-      <div className="chat-box relative z-10 mx-auto mt-10 max-w-xl rounded-2xl bg-white shadow-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-700 flex flex-col h-[600px]">
+      <div className="chat-box relative z-10 mx-auto mt-10 max-w-xl rounded-2xl bg-purple-900 shadow-xl border border-purple-400 flex flex-col h-[600px]">
         {/* Header */}
-        <div className="chat-box-header text-lg font-semibold p-4 border-b border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800">
+        <div className="chat-box-header text-lg font-semibold p-4 rounded-2xl border-gray-300 dark:border-gray-600 bg-purple-600">
           🤖 NextBot
         </div>
 
         {/* Messages */}
         <div
-          className="chat-box-body flex-1 overflow-y-auto p-4 space-y-3 bg-white dark:bg-gray-900"
+          className="chat-box-body flex-1 overflow-y-auto p-4 space-y-3 bg-white dark:bg-purple-950"
           ref={chatBoxRef}
         >
           {messages.map((msg, index) => (
@@ -135,7 +136,7 @@ export default function Page() {
         </div>
 
         {/* Input */}
-        <div className="chat-box-footer p-4 border-t border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 flex items-center gap-2 rounded-lg">
+        <div className="chat-box-footer p-3 border-t border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 flex items-center gap-2 rounded-lg my-1 mx-2">
           <input
             type="text"
             placeholder="Ask a question..."
