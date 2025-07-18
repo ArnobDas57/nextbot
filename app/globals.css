@@ -19,6 +19,17 @@
   }
 }
 
+.logo-container img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 15px rgba(119, 44, 232, 0.5);
+  border-radius: 50%;
+}
+
+.logo-container img:hover {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 0 25px rgba(119, 44, 232, 0.8);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
