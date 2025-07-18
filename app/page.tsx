@@ -1,9 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import Particles from "./ui/Particles";
 import Logo from "./ui/Logo";
-import Cubes from "./ui/Cubes";
 
 export default function Page() {
   const [messages, setMessages] = useState([
