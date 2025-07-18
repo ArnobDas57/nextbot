@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import Particles from "./ui/Particles";
 import Logo from "./ui/Logo";
+import Footer from "./ui/Footer";
 
 export default function Page() {
   const [messages, setMessages] = useState([
@@ -53,7 +54,15 @@ export default function Page() {
         body: JSON.stringify({ message: trimmed }),
       });
 
+      if (!res.ok) {
+        const text = await res.text(); // Try reading it as plain text first
+        throw new Error(`Request failed: ${res.status} - ${text}`);
+      }
+
       const data = await res.json();
+
+      console.log(await res.text());
+
       setMessages((prev) => [
         ...prev,
         { type: "message", text: trimmed },
@@ -151,6 +160,7 @@ export default function Page() {
           </button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

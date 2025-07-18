@@ -2,12 +2,12 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
-if (!process.env.API_TOKEN) {
+if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing OpenAI API token in environment variables.");
 }
 
 const openai = new OpenAI({
-  apiKey: process.env.API_TOKEN,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -42,8 +42,17 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ message: responseText });
-  } catch (err: unknown) {
-    console.error("OpenAI API error:", err);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    console.error("OpenAI API error:", err.response?.data || err.message);
+
+    if (err.response?.status === 429) {
+      return NextResponse.json(
+        { error: "You have exceeded your OpenAI API quota or rate limits." },
+        { status: 429 }
+      );
+    }
+
     const errorMessage =
       typeof err === "object" && err !== null && "message" in err
         ? (err as { message: string }).message
