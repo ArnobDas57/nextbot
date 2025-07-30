@@ -4,7 +4,7 @@ NextBot is a sleek and smart AI chatbot built with Next.js for both front-end an
 
 ## 🌐 Live Demo
 
-🖥️ [Add your deployed app URL here]
+🖥️ nextbot-self.vercel.app
 
 Backend + API: Next.js API Routes + OpenAI API
 
