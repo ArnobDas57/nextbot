@@ -16,13 +16,7 @@ Backend + API: Next.js API Routes + OpenAI API
 
 ⚡ Real-Time Messaging: Instant responses with a smooth, interactive chat interface.
 
-🔐 Simple Authentication (Optional): Easily add user sign-in to personalize chatbot experiences.
-
-🔄 Next.js Fullstack: Single framework for both frontend UI and backend API routes for seamless development.
-
 🎨 Customizable UI: Clean and minimalistic design that’s easy to style and extend.
-
-🧩 Extensible Architecture: Ready to integrate with databases, user profiles, or third-party APIs.
 
 ---
 
