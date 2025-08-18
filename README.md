@@ -1,6 +1,7 @@
 # 🤖 NextBot: AI Chatbot Powered by OpenAI & Next.js 
 
-NextBot is a sleek and smart AI chatbot built with Next.js for both front-end and back-end, leveraging the OpenAI API to deliver engaging, real-time conversations. Whether you want to build a personal assistant, customer support bot, or just a fun AI companion, NextBot provides a solid, extensible foundation.
+NextBot is a sleek and smart AI chatbot built with Next.js for both the front-end and back-end, delivering engaging, real-time conversations. 
+
 
 ## 🌐 Live Demo
 
