@@ -1,14 +1,12 @@
 // app/api/message/route.ts
-import OpenAI from "openai";
 import { NextResponse } from "next/server";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error("Missing OpenAI API token in environment variables.");
+if (!process.env.GEMINI_API_KEY) {
+  throw new Error("Missing Gemini API token in environment variables.");
 }
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function POST(req: Request) {
   try {
@@ -23,20 +21,18 @@ export async function POST(req: Request) {
 
     const userMessage = body.message;
 
-    const chat = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: "You are a helpful and concise assistant." },
-        { role: "user", content: userMessage },
-      ],
-      temperature: 0.7,
-    });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const responseText = chat.choices[0]?.message?.content?.trim();
+    const result = await model.generateContent([
+      "You are a helpful and concise assistant.",
+      userMessage,
+    ]);
+
+    const responseText = result.response.text().trim();
 
     if (!responseText?.length) {
       return NextResponse.json(
-        { error: "No response from OpenAI." },
+        { error: "No response from Gemini." },
         { status: 500 }
       );
     }
@@ -44,20 +40,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: responseText });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    console.error("OpenAI API error:", err.response?.data || err.message);
+    console.error("Gemini API error:", err);
 
-    if (err.response?.status === 429) {
-      return NextResponse.json(
-        { error: "You have exceeded your OpenAI API quota or rate limits." },
-        { status: 429 }
-      );
-    }
-
-    const errorMessage =
-      typeof err === "object" && err !== null && "message" in err
-        ? (err as { message: string }).message
-        : "An unknown error occurred";
-
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json(
+      { error: err?.message || "An unknown error occurred" },
+      { status: 500 }
+    );
   }
 }
