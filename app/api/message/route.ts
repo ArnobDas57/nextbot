@@ -1,4 +1,6 @@
 // app/api/message/route.ts
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -23,17 +25,28 @@ export async function POST(req: Request) {
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const result = await model.generateContent([
-      "You are a helpful and concise assistant.",
-      userMessage,
-    ]);
+    const result = await model.generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: "You are a helpful and concise assistant." }],
+        },
+        { role: "user", parts: [{ text: String(userMessage) }] },
+      ],
+      generationConfig: { temperature: 0.7 },
+    });
 
-    const responseText = result.response.text().trim();
+    const parts = result.response.candidates?.[0]?.content?.parts ?? [];
+    const responseText = parts
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((p: any) => p?.text ?? "")
+      .join("")
+      .trim();
 
-    if (!responseText?.length) {
+    if (!responseText) {
       return NextResponse.json(
         { error: "No response from Gemini." },
-        { status: 500 }
+        { status: 502 }
       );
     }
 
