@@ -13,10 +13,7 @@ Backend + API: Next.js API Routes + OpenAI API
 ## ✨ Features
 
 💬 AI-Powered Conversations: Chat with an intelligent bot powered by OpenAI’s latest language models.
-
 ⚡ Real-Time Messaging: Instant responses with a smooth, interactive chat interface.
-
-🎨 Customizable UI: Clean and minimalistic design that’s easy to style and extend.
 
 ---
 
