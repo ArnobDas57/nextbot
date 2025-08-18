@@ -37,3 +37,8 @@ Backend + API: Next.js API Routes + OpenAI API
 🔗 Integration with other AI APIs or plugins
 
 📱 Mobile-optimized responsive chat interface
+
+---
+
+<img width="1000" height="1000" alt="image" src="https://github.com/user-attachments/assets/3535f4a8-a29f-4be4-8a6e-5248d28c6df1" />
+
